@@ -5,6 +5,7 @@ class PrimeGenerator:
         self.n = args.n
         self.output_file = args.o
         self.lang = args.l
+        self.n_len = len(str(self.n))
         
     def sieve_of_eratosthenes(self):
         primes = [True] * (self.n + 1)
@@ -35,19 +36,19 @@ class PrimeGenerator:
                 f.write('\tif (n == 0 || n == 1) return false;\n')
                 for ind, i in enumerate(primes):
                     if i:
-                        f.write(f'\telse if (n == {ind}) return true;\n')
+                        f.write(f'\telse if (n == {ind: >{self.n_len}}) return  true;\n')
                     else:
-                        f.write(f'\telse if (n == {ind}) return false;\n')
+                        f.write(f'\telse if (n == {ind: >{self.n_len}}) return false;\n')
                 f.write('}\n')
             elif self.lang == 'py':
                 f.write('def is_prime(n):\n')
                 for ind, i in enumerate(primes):
                     if ind == 0:
-                        f.write(f'\tif n == {ind}:\n\t\treturn False\n')
+                        f.write(f'\tif n == {ind: >{self.n_len}}:\n\t\treturn False\n')
                     elif i:
-                        f.write(f'\telif n == {ind}:\n\t\treturn True\n')
+                        f.write(f'\telif n == {ind: >{self.n_len}}:\n\t\treturn  True\n')
                     else:
-                        f.write(f'\telif n == {ind}:\n\t\treturn False\n')
+                        f.write(f'\telif n == {ind: >{self.n_len}}:\n\t\treturn False\n')
 
 # Parse command-line arguments
 parser = argparse.ArgumentParser()
